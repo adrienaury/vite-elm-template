@@ -5,8 +5,8 @@ import Html.Styled.Attributes as Attr
 import Tailwind.Utilities as Tw
 import Tailwind.Theme as Tw
 
-fieldHeader : String -> Styled.Html msg
-fieldHeader label =
+header : String -> Styled.Html msg
+header label =
     Styled.header
         [ Attr.css
             [ Tw.flex
