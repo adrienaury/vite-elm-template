@@ -1,6 +1,5 @@
 module View.FieldHeader exposing (..)
 
-import Css
 import Html.Styled as Styled
 import Html.Styled.Attributes as Attr
 import Tailwind.Utilities as Tw
