@@ -6,12 +6,13 @@ import Tailwind.Utilities as Tw
 import Tailwind.Theme as Tw
 import List
 
+import Msg exposing (..)
 import View.Field as View
 import View.Footer as View
 import View.Masking as View
 import Model.Main exposing (..)
 
-mainView : Model -> Styled.Html msg
+mainView : Model -> Styled.Html Msg
 mainView model =
     Styled.main_
         [ Attr.css

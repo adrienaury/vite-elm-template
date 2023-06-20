@@ -5,9 +5,10 @@ import Html.Styled.Attributes as Attr
 import Tailwind.Utilities as Tw
 import Tailwind.Theme as Tw
 
+import Msg exposing (..)
 import View.Button as View
 
-footer : Styled.Html msg
+footer : Styled.Html Msg
 footer =
     Styled.footer
         [ Attr.css
