@@ -24,9 +24,7 @@ mainView model =
                 [ Tw.grow, Tw.w_1over2
                 ]
             ]
-            (
-                List.indexedMap View.field model
-            )
+            (List.indexedMap View.field model             ++ [View.footer])
         , Styled.section
             [ Attr.css
                 [ Tw.grow
