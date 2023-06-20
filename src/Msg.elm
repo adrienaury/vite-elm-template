@@ -1,6 +1,12 @@
-module Msg exposing (Msg(..))
+module Msg exposing (..)
 
+import Model.Main exposing (..)
 
 type Msg
-    = Increment
-    | Decrement
+    = Add FieldDefinition -- add a new field to the list
+
+update : Msg -> Model -> ( Model, Cmd Msg )
+update msg model =
+  case msg of
+    Add field ->
+        (field :: model, Cmd.none)

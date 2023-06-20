@@ -1,41 +1,37 @@
 module View.Main exposing (..)
 
-import Css
 import Html.Styled as Styled
 import Html.Styled.Attributes as Attr
 import Tailwind.Utilities as Tw
 import Tailwind.Theme as Tw
-import Tailwind.Breakpoints as Breakpoints
+import List
 
 import View.Field as View
 import View.Footer as View
 import View.Masking as View
+import Model.Main exposing (..)
 
-mainView : Styled.Html msg
-mainView =
+mainView : Model -> Styled.Html msg
+mainView model =
     Styled.main_
         [ Attr.css
-            [ Tw.flex_row
-            , Tw.px_5
-            , Tw.font_sans
-            , Tw.leading_8
-            , Tw.text_color Tw.stone_700
-            , Breakpoints.md
-                [ Tw.flex
-                ]
+            [ Tw.flex
+            , Tw.flex_row
             ]
         ]
         [ Styled.section
             [ Attr.css
-                [ Tw.basis_1over2
+                [ Tw.grow, Tw.w_1over2
                 ]
             ]
-            [
-                View.fieldSequence,
-                View.fieldSequence,
-                View.footer
+            (
+                List.indexedMap View.field model
+            )
+        , Styled.section
+            [ Attr.css
+                [ Tw.grow
+                ]
             ]
-        , Styled.section []
             [ View.masking
             ]
         ]
