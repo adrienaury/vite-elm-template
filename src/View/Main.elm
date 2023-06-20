@@ -9,6 +9,7 @@ import Tailwind.Breakpoints as Breakpoints
 
 import View.Field as View
 import View.Footer as View
+import View.Masking as View
 
 mainView : Styled.Html msg
 mainView =
@@ -35,9 +36,6 @@ mainView =
                 View.footer
             ]
         , Styled.section []
-            [ Styled.div [ Attr.css [ Tw.grow, Tw.shadow_lg, Css.property "height" "300px", Breakpoints.md [ Tw.h_full ] ]
-                            , Attr.id "editor-json"
-                            ]
-                            []
+            [ View.masking
             ]
         ]

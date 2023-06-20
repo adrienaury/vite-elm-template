@@ -23,6 +23,8 @@
     "vite-plugin-elm": "^2.8.0-beta.3"
   },
   "dependencies": {
-    "elm-debug-transformer": "^1.1.2"
+    "elm-debug-transformer": "^1.1.2",
+    "monaco-editor": "^0.39.0",
+    "monaco-yaml": "^4.0.4"
   }
 }
