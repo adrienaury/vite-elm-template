@@ -150,6 +150,7 @@ details i =
                 [ Styled.text "Collisions" ]
             , Styled.select
                 [ Attr.id ("collisions" ++ (String.fromInt i))
+                , Evt.onInput (ChangeAvoidCollisions i)
                 , Attr.css
                     [ Tw.px_2
                     , Css.focus

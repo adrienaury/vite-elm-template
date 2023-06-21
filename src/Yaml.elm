@@ -45,6 +45,31 @@ preserve field =
 
 maskRegex : FieldDefinition -> String
 maskRegex field =
+  coherence_seed field (
   case field.generator of
     Regex pattern -> String.replace "<pattern>" pattern """      - regex: "<pattern>"
 """
+  )
+
+coherence_seed : FieldDefinition -> String -> String
+coherence_seed field generator =
+  if List.isEmpty field.coherent_with then generator else (
+    if field.avoid_collisions
+      then coherence_cache field generator
+      else coherence_source field.coherent_with ++ generator ++ "    seed:\n      field: \"" ++ field.name ++ "\"\n"
+  )
+
+coherence_cache : FieldDefinition -> String -> String
+coherence_cache field generator =
+  if List.isEmpty field.coherent_with then generator else (
+    coherence_source field.coherent_with ++ generator ++ "    cache: \"" ++ field.name ++ "\"\n"
+  )
+
+coherence_source : List String -> String
+coherence_source fieldnames =
+  "      - template: \"" ++
+  String.concat (List.map fieldname_in_template fieldnames) ++ "\"\n"
+
+fieldname_in_template : String -> String
+fieldname_in_template name =
+  "{{." ++ name ++ "}}"
