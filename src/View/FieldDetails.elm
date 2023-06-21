@@ -129,7 +129,7 @@ details i =
                 [ Attr.id ("coherent_with" ++ (String.fromInt i))
                 , Attr.type_ "text"
                 , Attr.placeholder "field1, field2"
-                , Attr.value ""
+                , Evt.onInput (ChangeCoherentWith i)
                 , Attr.css
                     [ Tw.px_3
                     , Css.focus

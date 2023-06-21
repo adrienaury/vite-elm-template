@@ -50,6 +50,18 @@ updateFieldPreserve model index value =
     in
         {model | fields = fields}
 
+updateFieldCoherentWith : Model -> Int -> List String -> Model
+updateFieldCoherentWith model index value =
+    let
+        updater i field =
+            if (index == i) then
+                { field | coherent_with = value }
+            else
+                field
+        fields = List.indexedMap updater model.fields
+    in
+        {model | fields = fields}
+
 updateFieldAvoidCollisions : Model -> Int -> Bool -> Model
 updateFieldAvoidCollisions model index value =
     let
@@ -76,3 +88,7 @@ updateFieldRegexPattern model index pattern =
         fields = List.indexedMap updater model.fields
     in
         {model | fields = fields}
+
+isNotEmpty : String -> Bool
+isNotEmpty s =
+    if String.isEmpty s then False else True

@@ -16,6 +16,7 @@ type Msg
     | ChangeSynthesize Int String      -- update field synthesize option
     | ChangeTransient Int String       -- update field transient option
     | ChangePreserve Int String        -- update field preserve option
+    | ChangeCoherentWith Int String    -- update field coherent_with option
     | ChangeAvoidCollisions Int String -- update field avoid_collisions option
     | ChangeRegexPattern Int String    -- update regex pattern
 
@@ -54,6 +55,13 @@ update msg model =
     ChangePreserve i value ->
       let
         newModel = updateFieldPreserve model i (if value == "null" then Null else if value == "empty" then Empty else if value == "blank" then Blank else None)
+        newYaml = Yaml.file newModel.fields
+      in
+        ( newModel, updateYaml newYaml )
+
+    ChangeCoherentWith i value ->
+      let
+        newModel = updateFieldCoherentWith model i (List.filter isNotEmpty (List.map String.trim (String.split "," value)))
         newYaml = Yaml.file newModel.fields
       in
         ( newModel, updateYaml newYaml )
