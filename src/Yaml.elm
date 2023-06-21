@@ -7,7 +7,7 @@ file : List FieldDefinition -> String
 file fields =
   """version: "1"
 masking:
-  """ ++ String.concat (List.map masking fields)
+""" ++ String.concat (List.map masking fields)
 
 
 masking : FieldDefinition -> String
@@ -30,4 +30,4 @@ maskRegex : FieldDefinition -> String
 maskRegex field =
   case field.generator of
     Regex pattern -> String.replace "<pattern>" pattern """    - regex: "<pattern>"
-    """
+"""
