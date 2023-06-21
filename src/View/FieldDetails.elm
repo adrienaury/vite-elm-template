@@ -3,6 +3,7 @@ module View.FieldDetails exposing (..)
 import Css
 import Html.Styled as Styled
 import Html.Styled.Attributes as Attr
+import Html.Styled.Events as Evt
 import Tailwind.Utilities as Tw
 import Tailwind.Theme as Tw
 
@@ -31,6 +32,7 @@ details i =
                 [ Styled.text "Synthesize" ]
             , Styled.select
                 [ Attr.id ("synthesize" ++ (String.fromInt i))
+                , Evt.onInput (ChangeSynthesize i)
                 , Attr.css
                     [ Tw.px_2
                     , Css.focus

@@ -20,7 +20,7 @@ type Generator
 type alias FieldDefinition =
   { name : String
   , generator : Generator
-  , synthezize : Bool
+  , synthesize : Bool
   , transient : Bool
   , preserve : Preserve
   , coherent_with : List String
