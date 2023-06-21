@@ -11,12 +11,13 @@ port updateYaml : String -> Cmd msg
 -- MESSAGES
 
 type Msg
-    = Add FieldDefinition           -- add a new field to the list
-    | ChangeName Int String         -- update field name (index in the list, new name)
-    | ChangeSynthesize Int String   -- update field synthesize option
-    | ChangeTransient Int String    -- update field transient option
-    | ChangePreserve Int String     -- update field transient option
-    | ChangeRegexPattern Int String -- update regex pattern
+    = Add FieldDefinition              -- add a new field to the list
+    | ChangeName Int String            -- update field name (index in the list, new name)
+    | ChangeSynthesize Int String      -- update field synthesize option
+    | ChangeTransient Int String       -- update field transient option
+    | ChangePreserve Int String        -- update field preserve option
+    | ChangeAvoidCollisions Int String -- update field avoid_collisions option
+    | ChangeRegexPattern Int String    -- update regex pattern
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
@@ -53,6 +54,13 @@ update msg model =
     ChangePreserve i value ->
       let
         newModel = updateFieldPreserve model i (if value == "null" then Null else if value == "empty" then Empty else if value == "blank" then Blank else None)
+        newYaml = Yaml.file newModel.fields
+      in
+        ( newModel, updateYaml newYaml )
+
+    ChangeAvoidCollisions i value ->
+      let
+        newModel = updateFieldAvoidCollisions model i (if value == "forbidden" then True else False)
         newYaml = Yaml.file newModel.fields
       in
         ( newModel, updateYaml newYaml )

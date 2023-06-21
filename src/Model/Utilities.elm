@@ -50,6 +50,18 @@ updateFieldPreserve model index value =
     in
         {model | fields = fields}
 
+updateFieldAvoidCollisions : Model -> Int -> Bool -> Model
+updateFieldAvoidCollisions model index value =
+    let
+        updater i field =
+            if (index == i) then
+                { field | avoid_collisions = value }
+            else
+                field
+        fields = List.indexedMap updater model.fields
+    in
+        {model | fields = fields}
+
 updateFieldRegexPattern : Model -> Int -> String -> Model
 updateFieldRegexPattern model index pattern =
     let
