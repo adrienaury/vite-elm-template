@@ -6,8 +6,10 @@ import Html.Styled.Attributes as Attr
 import Tailwind.Utilities as Tw
 import Tailwind.Theme as Tw
 
-details : Styled.Html msg
-details =
+import Msg exposing (..)
+
+details : Int -> Styled.Html Msg
+details i =
     Styled.details
         [ 
         ]
@@ -21,14 +23,14 @@ details =
                 ]
             ]
             [ Styled.label
-                [ Attr.for "synthesize"
+                [ Attr.for ("synthesize" ++ (String.fromInt i))
                 , Attr.css
                     [ Tw.font_medium
                     ]
                 ]
                 [ Styled.text "Synthesize" ]
             , Styled.select
-                [ Attr.id "synthesize"
+                [ Attr.id ("synthesize" ++ (String.fromInt i))
                 , Attr.css
                     [ Tw.px_2
                     , Css.focus
@@ -49,14 +51,14 @@ details =
                     [ Styled.text "yes" ]
                 ]
             , Styled.label
-                [ Attr.for "transient"
+                [ Attr.for ("transient" ++ (String.fromInt i))
                 , Attr.css
                     [ Tw.font_medium
                     ]
                 ]
                 [ Styled.text "Transient" ]
             , Styled.select
-                [ Attr.id "transient"
+                [ Attr.id ("transient" ++ (String.fromInt i))
                 , Attr.css
                     [ Tw.px_2
                     , Css.focus
@@ -77,14 +79,14 @@ details =
                     [ Styled.text "yes" ]
                 ]
             , Styled.label
-                [ Attr.for "preserve"
+                [ Attr.for ("preserve" ++ (String.fromInt i))
                 , Attr.css
                     [ Tw.font_medium
                     ]
                 ]
                 [ Styled.text "Preserve" ]
             , Styled.select
-                [ Attr.id "preserve"
+                [ Attr.id ("preserve" ++ (String.fromInt i))
                 , Attr.css
                     [ Tw.px_2
                     , Css.focus
@@ -113,14 +115,14 @@ details =
                     [ Styled.text "blank" ]
                 ]
             , Styled.label
-                [ Attr.for "coherent_with"
+                [ Attr.for ("coherent_with" ++ (String.fromInt i))
                 , Attr.css
                     [ Tw.font_medium
                     ]
                 ]
                 [ Styled.text "Coherent with" ]
             , Styled.input
-                [ Attr.id "coherent_with"
+                [ Attr.id ("coherent_with" ++ (String.fromInt i))
                 , Attr.type_ "text"
                 , Attr.placeholder "field1, field2"
                 , Attr.value ""
@@ -136,14 +138,14 @@ details =
                 ]
                 []
             , Styled.label
-                [ Attr.for "collisions"
+                [ Attr.for ("collisions" ++ (String.fromInt i))
                 , Attr.css
                     [ Tw.font_medium
                     ]
                 ]
                 [ Styled.text "Collisions" ]
             , Styled.select
-                [ Attr.id "collisions"
+                [ Attr.id ("collisions" ++ (String.fromInt i))
                 , Attr.css
                     [ Tw.px_2
                     , Css.focus
