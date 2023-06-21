@@ -73,6 +73,7 @@ fieldRegex i name regex =
                 , Attr.type_ "text"
                 , Attr.placeholder "regex"
                 , Attr.value regex
+                , Evt.onInput (ChangeRegexPattern i)
                 , Attr.css
                     [ Tw.px_3
                     , Css.focus

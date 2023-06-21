@@ -14,3 +14,18 @@ updateFieldName model index name =
         fields = List.indexedMap updater model.fields
     in
         {model | fields = fields}
+
+updateFieldRegexPattern : Model -> Int -> String -> Model
+updateFieldRegexPattern model index pattern =
+    let
+        updater i field =
+            if (index == i) then
+                case field.generator of
+                Regex _ ->
+                    { field | generator = Regex pattern }
+                --_ -> field
+            else
+                field
+        fields = List.indexedMap updater model.fields
+    in
+        {model | fields = fields}
