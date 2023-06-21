@@ -24,10 +24,15 @@ selector field =
 mask : FieldDefinition -> String
 mask field =
   """    masks:
-  """ ++ maskRegex field
+""" ++ synthesize field ++ maskRegex field
+
+synthesize : FieldDefinition -> String
+synthesize field =
+  if field.synthesize then """      - add: true
+""" else ""
 
 maskRegex : FieldDefinition -> String
 maskRegex field =
   case field.generator of
-    Regex pattern -> String.replace "<pattern>" pattern """    - regex: "<pattern>"
+    Regex pattern -> String.replace "<pattern>" pattern """      - regex: "<pattern>"
 """
