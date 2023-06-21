@@ -1,7 +1,6 @@
 module Yaml exposing (..)
 
-import Model.Main exposing (FieldDefinition)
-import Model.Main exposing (Generator(..))
+import Model.Main exposing (..)
 
 file : List FieldDefinition -> String
 file fields =
@@ -24,12 +23,25 @@ selector field =
 mask : FieldDefinition -> String
 mask field =
   """    masks:
-""" ++ synthesize field ++ maskRegex field
+""" ++ synthesize field ++ transient field ++ maskRegex field ++ preserve field
 
 synthesize : FieldDefinition -> String
 synthesize field =
   if field.synthesize then """      - add: true
 """ else ""
+
+transient : FieldDefinition -> String
+transient field =
+  if field.transient then """      - add-transient: true
+""" else ""
+
+preserve : FieldDefinition -> String
+preserve field =
+  case field.preserve of
+    None -> ""
+    Null -> "    preserve: \"null\"\n"
+    Empty -> "    preserve: \"empty\"\n"
+    Blank -> "    preserve: \"blank\"\n"
 
 maskRegex : FieldDefinition -> String
 maskRegex field =
