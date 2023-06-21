@@ -27,4 +27,7 @@ type alias FieldDefinition =
   , avoid_collisions : Bool
   }
 
-type alias Model = List FieldDefinition
+type alias Model =
+  { fields : List FieldDefinition
+  , masking_yaml : String
+  }

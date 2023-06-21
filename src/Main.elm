@@ -24,10 +24,12 @@ subscriptions _ =
   Sub.none
 
 init : () -> ( Model, Cmd Msg )
-init _ = ([
-      FieldDefinition "first_name" (Regex "blablabla") False False None [] False
-    , FieldDefinition "last_name" (Regex "blablabla") False False None [] False
-  ], Cmd.none )
+init _ = (
+  { fields = [ FieldDefinition "first_name" (Regex "blablabla") False False None [] False
+             , FieldDefinition "last_name" (Regex "blablabla") False False None [] False
+            ]
+  , masking_yaml = ""
+  }, Cmd.none )
 
 view : Model -> Browser.Document Msg
 view model =

@@ -9,4 +9,7 @@ update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
   case msg of
     Add field ->
-        (field :: model, Cmd.none)
+      let
+        newFields = model.fields ++ [field]
+      in
+        ({model | fields = newFields}, Cmd.none)
