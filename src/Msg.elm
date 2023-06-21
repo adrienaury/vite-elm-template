@@ -15,6 +15,7 @@ type Msg
     | ChangeName Int String         -- update field name (index in the list, new name)
     | ChangeSynthesize Int String   -- update field synthesize option
     | ChangeTransient Int String    -- update field transient option
+    | ChangePreserve Int String     -- update field transient option
     | ChangeRegexPattern Int String -- update regex pattern
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -45,6 +46,13 @@ update msg model =
     ChangeTransient i value ->
       let
         newModel = updateFieldTransient model i (if value == "true" then True else False)
+        newYaml = Yaml.file newModel.fields
+      in
+        ( newModel, updateYaml newYaml )
+
+    ChangePreserve i value ->
+      let
+        newModel = updateFieldPreserve model i (if value == "null" then Null else if value == "empty" then Empty else if value == "blank" then Blank else None)
         newYaml = Yaml.file newModel.fields
       in
         ( newModel, updateYaml newYaml )

@@ -38,6 +38,18 @@ updateFieldTransient model index value =
     in
         {model | fields = fields}
 
+updateFieldPreserve : Model -> Int -> Preserve -> Model
+updateFieldPreserve model index value =
+    let
+        updater i field =
+            if (index == i) then
+                { field | preserve = value }
+            else
+                field
+        fields = List.indexedMap updater model.fields
+    in
+        {model | fields = fields}
+
 updateFieldRegexPattern : Model -> Int -> String -> Model
 updateFieldRegexPattern model index pattern =
     let

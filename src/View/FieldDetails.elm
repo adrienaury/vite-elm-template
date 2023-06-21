@@ -90,6 +90,7 @@ details i =
                 [ Styled.text "Preserve" ]
             , Styled.select
                 [ Attr.id ("preserve" ++ (String.fromInt i))
+                , Evt.onInput (ChangePreserve i)
                 , Attr.css
                     [ Tw.px_2
                     , Css.focus
