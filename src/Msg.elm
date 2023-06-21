@@ -1,6 +1,7 @@
 module Msg exposing (..)
 
 import Model.Main exposing (..)
+import Model.Utilities exposing (updateFieldName)
 
 type Msg
     = Add FieldDefinition   -- add a new field to the list
@@ -15,13 +16,4 @@ update msg model =
       in
         ({model | fields = newFields}, Cmd.none)
     ChangeName i name ->
-      let
-        updateFieldName index field =
-          if (index == i) then
-            { field | name = name }
-          else
-            field
-        fields =
-          List.indexedMap updateFieldName model.fields
-      in
-        ( {model | fields = fields}, Cmd.none )
+      ( updateFieldName model i name, Cmd.none )

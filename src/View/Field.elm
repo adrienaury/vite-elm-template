@@ -3,6 +3,7 @@ module View.Field exposing (..)
 import Css
 import Html.Styled as Styled
 import Html.Styled.Attributes as Attr
+import Html.Styled.Events as Evt
 import Tailwind.Utilities as Tw
 import Tailwind.Theme as Tw
 
@@ -48,6 +49,7 @@ fieldRegex i name regex =
                 , Attr.type_ "text"
                 , Attr.placeholder "jsonpath"
                 , Attr.value name
+                , Evt.onInput (ChangeName i)
                 , Attr.css
                     [ Tw.px_3
                     , Css.focus
