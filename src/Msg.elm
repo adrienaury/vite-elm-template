@@ -2,6 +2,7 @@ module Msg exposing (..)
 
 import Model.Main exposing (..)
 import Model.Utilities exposing (updateFieldName)
+import Yaml
 
 type Msg
     = Add FieldDefinition   -- add a new field to the list
@@ -14,6 +15,6 @@ update msg model =
       let
         newFields = model.fields ++ [field]
       in
-        ({model | fields = newFields}, Cmd.none)
+        ({model | fields = newFields, masking_yaml = Yaml.file newFields }, Cmd.none)
     ChangeName i name ->
       ( updateFieldName model i name, Cmd.none )

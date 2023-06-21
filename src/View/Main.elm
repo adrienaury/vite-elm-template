@@ -33,4 +33,7 @@ mainView model =
             ]
             [ View.masking
             ]
+        , Styled.pre
+            []
+            [ Styled.text model.masking_yaml ]
         ]

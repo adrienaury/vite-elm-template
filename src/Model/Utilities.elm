@@ -1,6 +1,7 @@
 module Model.Utilities exposing (..)
 
 import Model.Main exposing (..)
+import Yaml
 
 updateFieldName : Model -> Int -> String -> Model
 updateFieldName model index name =
@@ -12,4 +13,4 @@ updateFieldName model index name =
                 field
         fields = List.indexedMap updater model.fields
     in
-        {model | fields = fields}
+        {model | fields = fields, masking_yaml = Yaml.file fields}

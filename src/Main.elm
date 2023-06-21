@@ -28,7 +28,7 @@ init _ = (
   { fields = [ FieldDefinition "first_name" (Regex "blablabla") False False None [] False
              , FieldDefinition "last_name" (Regex "blablabla") False False None [] False
             ]
-  , masking_yaml = ""
+  , masking_yaml = """version: "1" """
   }, Cmd.none )
 
 view : Model -> Browser.Document Msg
