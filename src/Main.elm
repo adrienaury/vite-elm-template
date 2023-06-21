@@ -10,6 +10,7 @@ import Tailwind.Theme as Tw
 import View.Main as View
 import Model.Main exposing (..)
 import Msg exposing (..)
+import Yaml
 
 -- MAIN
 
@@ -23,13 +24,14 @@ subscriptions : Model -> Sub Msg
 subscriptions _ =
   Sub.none
 
+-- INIT
+
 init : () -> ( Model, Cmd Msg )
 init _ = (
-  { fields = [ FieldDefinition "first_name" (Regex "blablabla") False False None [] False
-             , FieldDefinition "last_name" (Regex "blablabla") False False None [] False
-            ]
-  , masking_yaml = """version: "1" """
-  }, Cmd.none )
+  { fields = [ ]
+  }, updateYaml (Yaml.file []) )
+
+-- VIEW
 
 view : Model -> Browser.Document Msg
 view model =

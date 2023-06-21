@@ -29,5 +29,4 @@ type alias FieldDefinition =
 
 type alias Model =
   { fields : List FieldDefinition
-  , masking_yaml : String
   }

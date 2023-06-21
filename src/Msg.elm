@@ -1,8 +1,14 @@
-module Msg exposing (..)
+port module Msg exposing (..)
 
 import Model.Main exposing (..)
 import Model.Utilities exposing (updateFieldName)
 import Yaml
+
+-- PORTS
+
+port updateYaml : String -> Cmd msg
+
+-- MESSAGES
 
 type Msg
     = Add FieldDefinition   -- add a new field to the list
@@ -14,7 +20,13 @@ update msg model =
     Add field ->
       let
         newFields = model.fields ++ [field]
+        newYaml = Yaml.file newFields
       in
-        ({model | fields = newFields, masking_yaml = Yaml.file newFields }, Cmd.none)
+        ({model | fields = newFields }, updateYaml newYaml)
     ChangeName i name ->
-      ( updateFieldName model i name, Cmd.none )
+      let
+        newModel = updateFieldName model i name
+        newYaml = Yaml.file newModel.fields
+      in
+      
+      ( newModel, updateYaml newYaml )

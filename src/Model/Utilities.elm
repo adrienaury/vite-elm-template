@@ -13,4 +13,4 @@ updateFieldName model index name =
                 field
         fields = List.indexedMap updater model.fields
     in
-        {model | fields = fields, masking_yaml = Yaml.file fields}
+        {model | fields = fields}

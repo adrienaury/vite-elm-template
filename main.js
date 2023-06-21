@@ -33,7 +33,7 @@ window.MonacoEnvironment = {
 
 // The uri is used for the schema file match.
 const modelUri = Uri.parse('file://masking.yml')
-let masking = 'version: "1"\nmasking:\n  - selector:\n      jsonpath: "name"\n    mask:\n      randomChoiceInUri: "pimo://nameFR"';
+let masking = 'version: "1"\nmasking:';
 
 setDiagnosticsOptions({
     enableSchemaRequest: true,
@@ -51,7 +51,7 @@ setDiagnosticsOptions({
     ]
   })
   
-  editor.create(document.getElementById("editor-yaml"), {
+  let editorYaml = editor.create(document.getElementById("editor-yaml"), {
     automaticLayout: true,
     tabSize: 2,
     scrollBeyondLastLine: false,
@@ -59,3 +59,7 @@ setDiagnosticsOptions({
     model: editor.createModel(masking, "yaml", modelUri),
   })
 //////
+
+app.ports.updateYaml.subscribe(function (yaml) {
+  editorYaml.setValue(yaml)
+})
