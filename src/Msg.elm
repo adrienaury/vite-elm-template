@@ -13,7 +13,8 @@ port updateYaml : String -> Cmd msg
 type Msg
     = Add FieldDefinition           -- add a new field to the list
     | ChangeName Int String         -- update field name (index in the list, new name)
-    | ChangeSynthesize Int String     -- update field synthesize option
+    | ChangeSynthesize Int String   -- update field synthesize option
+    | ChangeTransient Int String    -- update field transient option
     | ChangeRegexPattern Int String -- update regex pattern
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -36,7 +37,14 @@ update msg model =
 
     ChangeSynthesize i value ->
       let
-        newModel = updateFieldSynthesize model i (if value == "yes" then True else False) 
+        newModel = updateFieldSynthesize model i (if value == "true" then True else False) 
+        newYaml = Yaml.file newModel.fields
+      in
+        ( newModel, updateYaml newYaml )
+
+    ChangeTransient i value ->
+      let
+        newModel = updateFieldTransient model i (if value == "true" then True else False)
         newYaml = Yaml.file newModel.fields
       in
         ( newModel, updateYaml newYaml )

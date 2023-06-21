@@ -61,6 +61,7 @@ details i =
                 [ Styled.text "Transient" ]
             , Styled.select
                 [ Attr.id ("transient" ++ (String.fromInt i))
+                , Evt.onInput (ChangeTransient i)
                 , Attr.css
                     [ Tw.px_2
                     , Css.focus
