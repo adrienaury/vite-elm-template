@@ -15,11 +15,11 @@ import Model.Main exposing (..)
 field : Int -> FieldDefinition -> Styled.Html Msg
 field i f =
     case f.generator of
-    Regex regex ->
-        fieldRegex i f.name regex
+    Regex pattern ->
+        fieldRegex i f.name pattern
 
 fieldRegex : Int -> String -> String -> Styled.Html Msg
-fieldRegex i name regex =
+fieldRegex i name pattern =
     Styled.article
         [ Attr.css
             [ Tw.shadow_md
@@ -62,17 +62,17 @@ fieldRegex i name regex =
                 ]
                 []
             , Styled.label
-                [ Attr.for ("regex" ++ (String.fromInt i))
+                [ Attr.for ("pattern" ++ (String.fromInt i))
                 , Attr.css
                     [ Tw.font_medium
                     ]
                 ]
-                [ Styled.text "Regex" ]
+                [ Styled.text "Pattern" ]
             , Styled.input
-                [ Attr.id ("regex" ++ (String.fromInt i))
+                [ Attr.id ("pattern" ++ (String.fromInt i))
                 , Attr.type_ "text"
-                , Attr.placeholder "regex"
-                , Attr.value regex
+                , Attr.placeholder "[0-9]{4}"
+                , Attr.value pattern
                 , Evt.onInput (ChangeRegexPattern i)
                 , Attr.css
                     [ Tw.px_3

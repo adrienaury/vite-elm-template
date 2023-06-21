@@ -7,7 +7,7 @@ type Preserve
   | Blank
 
 type Generator
-  = Regex        String                             -- regex
+  = Regex        String                             -- pattern
 --   | Integer      Int Int                            -- min, max
 --   | Sequence     Int Int                            -- start, increment
 --   | Boolean      Int Int                            -- weightTrue, weightFalse
@@ -30,3 +30,6 @@ type alias FieldDefinition =
 type alias Model =
   { fields : List FieldDefinition
   }
+
+newRegex : FieldDefinition
+newRegex = (FieldDefinition "" (Regex "") False False None [] False)

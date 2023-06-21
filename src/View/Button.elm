@@ -10,8 +10,8 @@ import Tailwind.Theme as Tw
 import Msg exposing (..)
 import Model.Main exposing (..)
 
-button : String -> Styled.Html Msg
-button label =
+button : String -> FieldDefinition -> Styled.Html Msg
+button label newField =
     Styled.button
         [ Attr.css
             [ Tw.border_color Tw.stone_500
@@ -23,6 +23,6 @@ button label =
                 [ Tw.bg_color Tw.stone_200
                 ]
             ]
-            , Evt.onClick (Add (FieldDefinition "first_name" (Regex "blablabla") False False None [] False))
+            , Evt.onClick (Add newField)
         ]
         [ Styled.text label ]
