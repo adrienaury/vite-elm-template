@@ -20,73 +20,31 @@ field i f =
 
 fieldRegex : Int -> String -> String -> Styled.Html Msg
 fieldRegex i name pattern =
-    Styled.article
-        [ Attr.css
-            [ Tw.shadow_md
-            , Tw.bg_color Tw.stone_100
-            , Tw.rounded_md
-            , Tw.p_4
-            , Tw.my_2
-            ]
-        ]
-        [ View.header "regex"
-        , Styled.div
-            [ Attr.css
-                [ Tw.grid
-                , Css.property "grid-template-columns" "25% 75%"
-                , Tw.gap_1
+    fieldContainer i "regex" name [
+        Styled.label
+            [ Attr.for ("pattern" ++ (String.fromInt i))
+            , Attr.css
+                [ Tw.font_medium
                 ]
             ]
-            [ Styled.label
-                [ Attr.for ("name" ++ (String.fromInt i))
-                , Attr.css
-                    [ Tw.font_medium
+            [ Styled.text "Pattern" ]
+        , Styled.input
+            [ Attr.id ("pattern" ++ (String.fromInt i))
+            , Attr.type_ "text"
+            , Attr.placeholder "[0-9]{4}"
+            , Attr.value pattern
+            , Evt.onInput (ChangeRegexPattern i)
+            , Attr.css
+                [ Tw.px_3
+                , Css.focus
+                    [ Tw.bg_color Tw.stone_200
+                    ]
+                , Css.hover
+                    [ Tw.bg_color Tw.stone_50
                     ]
                 ]
-                [ Styled.text "Name" ]
-            , Styled.input
-                [ Attr.id ("name" ++ (String.fromInt i))
-                , Attr.type_ "text"
-                , Attr.placeholder "jsonpath"
-                , Attr.value name
-                , Evt.onInput (ChangeName i)
-                , Attr.css
-                    [ Tw.px_3
-                    , Css.focus
-                        [ Tw.bg_color Tw.stone_200
-                        ]
-                    , Css.hover
-                        [ Tw.bg_color Tw.stone_50
-                        ]
-                    ]
-                ]
-                []
-            , Styled.label
-                [ Attr.for ("pattern" ++ (String.fromInt i))
-                , Attr.css
-                    [ Tw.font_medium
-                    ]
-                ]
-                [ Styled.text "Pattern" ]
-            , Styled.input
-                [ Attr.id ("pattern" ++ (String.fromInt i))
-                , Attr.type_ "text"
-                , Attr.placeholder "[0-9]{4}"
-                , Attr.value pattern
-                , Evt.onInput (ChangeRegexPattern i)
-                , Attr.css
-                    [ Tw.px_3
-                    , Css.focus
-                        [ Tw.bg_color Tw.stone_200
-                        ]
-                    , Css.hover
-                        [ Tw.bg_color Tw.stone_50
-                        ]
-                    ]
-                ]
-                []
             ]
-        , View.details i
+            []
     ]
 
 fieldSequence : Int -> String -> Int -> Int -> Styled.Html Msg
@@ -178,5 +136,51 @@ fieldSequence i name start increment =
                 ]
                 []
             ]
+        ]
+
+fieldContainer : Int -> String -> String -> List (Styled.Html Msg) -> Styled.Html Msg
+fieldContainer i headername name html =
+    Styled.article
+        [ Attr.css
+            [ Tw.shadow_md
+            , Tw.bg_color Tw.stone_100
+            , Tw.rounded_md
+            , Tw.p_4
+            , Tw.my_2
+            ]
+        ]
+        [ View.header headername
+        , Styled.div
+            [ Attr.css
+                [ Tw.grid
+                , Css.property "grid-template-columns" "25% 75%"
+                , Tw.gap_1
+                ]
+            ]
+            ([ Styled.label
+                [ Attr.for ("name" ++ (String.fromInt i))
+                , Attr.css
+                    [ Tw.font_medium
+                    ]
+                ]
+                [ Styled.text "Name" ]
+            , Styled.input
+                [ Attr.id ("name" ++ (String.fromInt i))
+                , Attr.type_ "text"
+                , Attr.placeholder "jsonpath"
+                , Attr.value name
+                , Evt.onInput (ChangeName i)
+                , Attr.css
+                    [ Tw.px_3
+                    , Css.focus
+                        [ Tw.bg_color Tw.stone_200
+                        ]
+                    , Css.hover
+                        [ Tw.bg_color Tw.stone_50
+                        ]
+                    ]
+                ]
+                []
+            ] ++ html)
         , View.details i
     ]
