@@ -4,7 +4,7 @@ import Model.Main exposing (..)
 
 file : List FieldDefinition -> String
 file fields =
-  """version: "1"
+  "version: \"1\"" ++ caches fields ++ """
 masking:
 """ ++ String.concat (List.map masking fields)
 
@@ -73,3 +73,18 @@ coherence_source fieldnames =
 fieldname_in_template : String -> String
 fieldname_in_template name =
   "{{." ++ name ++ "}}"
+
+caches : List FieldDefinition -> String
+caches fields =
+  let
+    needCache field =
+      field.avoid_collisions && List.length field.coherent_with > 0
+    fieldsWithCache = List.filter needCache fields
+  in
+    if List.length fieldsWithCache > 0
+      then "\ncaches:\n" ++ String.concat (List.map cache fieldsWithCache)
+      else ""
+
+cache : FieldDefinition -> String
+cache field =
+  "  " ++ field.name ++ ":\n    unique: true\n"
